@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+    db:
+        container_name: currency-conversation-db
+        image: postgres:12.0
+
+    server:
+        container_name: currency-conversation-db-server
+        build:
+          context: ./
+          dockerfile: ./server/debug.Dockerfile
+        depends_on:
+            - db
+        environment:
+            DATABASE_URL: postgres://postgres@db/postgres
+            DEBUG: "True"
+        ports:
+            - 8000:8000
+            - 5678:5678
+        volumes:
+            - ./server:/server
