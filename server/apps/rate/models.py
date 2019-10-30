@@ -41,3 +41,10 @@ class Rate(models.Model):
         auto_now=True,
         verbose_name='Last update'
     )
+
+    class Meta:
+        verbose_name = 'Rate'
+        verbose_name_plural = 'Rates'
+
+    def __str__(self):
+        return f'{self.from_cur} -> {self.to_cur} = {self.rate}'

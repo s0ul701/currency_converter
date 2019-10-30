@@ -66,8 +66,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(),
 }
-# DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -85,9 +83,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = 'ru-RU'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Krasnoyarsk'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -98,3 +96,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 OPEN_EXCHANGE_RATES_APP_ID = 'f1f6c7ba46a74395893308b7c56fb248'
+
+OPEN_EXCHANGE_RATES_URL = f'https://openexchangerates.org/api/latest.json?app_id={OPEN_EXCHANGE_RATES_APP_ID}'
