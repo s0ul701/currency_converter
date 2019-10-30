@@ -10,20 +10,19 @@ from apps.rate.models import CURRENCY_CHOICE, Rate
 
 
 def load_init_rates(*args, **kwargs):
+    """Loads inintial rates of currencies"""
     backend = OpenExchangeRatesBackend(url=OPEN_EXCHANGE_RATES_URL)
     backend.update_rates()
 
     currencies = [currency for (currency, _) in CURRENCY_CHOICE]
-    result = []
     for currency1 in currencies:
         for currency2 in currencies:
             if currency1 != currency2:
                 Rate.objects.create(
                     from_cur=currency1,
                     to_cur=currency2,
-                    rate=get_rate(currency1, currency2, backend=backend.name
+                    rate=get_rate(currency1, currency2, backend=backend.name)
                 )
-            )
 
 
 class Migration(migrations.Migration):
