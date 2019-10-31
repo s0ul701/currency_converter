@@ -47,4 +47,4 @@ class Rate(models.Model):
         verbose_name_plural = 'Rates'
 
     def __str__(self):
-        return f'{self.from_cur} -> {self.to_cur} = {self.rate}'
+        return f'{self.from_cur} -> {self.to_cur} = {self.rate} ({self.updated_at})'

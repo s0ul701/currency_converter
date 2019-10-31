@@ -1,22 +1,57 @@
 version: '3'
 services:
-
     db:
-        container_name: currency-conversation-db
+        container_name: postgres_db
         image: postgres:12.0
+        ports:
+            - 5432:5432
+        volumes:
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
     server:
-        container_name: currency-conversation-db-server
+        container_name: server
         build:
             context: ./
             dockerfile: ./server/Dockerfile
         command: python manage.py runserver 0.0.0.0:8000
         depends_on:
             - db
+            - redis
         environment:
-            DATABASE_URL: postgres://postgres:password@db:5432/postgres
-            DEBUG: "True"
+            DATABASE_URL: postgres://postgres_user:password@db:5432/postgres_db
         ports:
             - 8000:8000
         volumes:
             - ./server:/server
+    
+    redis:
+        container_name: redis
+        image: redis:5.0.6
+    
+    celery:
+        container_name: celery
+        build:
+            context: ./
+            dockerfile: ./server/Dockerfile
+        command: celery -A config worker -l info
+        volumes:
+            - ./server:/server
+        depends_on:
+            - db
+            - redis
+        environment:
+            DATABASE_URL: postgres://postgres_user:password@db:5432/postgres_db
+    
+    celery-beat:
+        container_name: celery_beat
+        build:
+            context: ./
+            dockerfile: ./server/Dockerfile
+        command: celery -A config beat -l info
+        volumes:
+            - ./server:/server
+        depends_on:
+            - db
+            - redis
+        environment:
+            DATABASE_URL: postgres://postgres_user:password@db:5432/postgres_db

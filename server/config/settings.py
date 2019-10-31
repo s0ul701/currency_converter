@@ -1,5 +1,6 @@
 import os
 import dj_database_url
+from celery.schedules import crontab
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -98,3 +99,17 @@ STATIC_URL = '/static/'
 OPEN_EXCHANGE_RATES_APP_ID = 'f1f6c7ba46a74395893308b7c56fb248'
 
 OPEN_EXCHANGE_RATES_URL = f'https://openexchangerates.org/api/latest.json?app_id={OPEN_EXCHANGE_RATES_APP_ID}'
+
+
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_BEAT_SCHEDULE = {
+    'hello': {
+        'task': 'apps.rate.tasks.hello',
+        'schedule': crontab()  # execute every minute
+    }
+}
