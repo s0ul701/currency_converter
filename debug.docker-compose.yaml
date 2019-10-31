@@ -8,8 +8,8 @@ services:
     server:
         container_name: currency-conversation-db-server
         build:
-          context: ./
-          dockerfile: ./server/debug.Dockerfile
+            context: ./
+            dockerfile: ./server/debug.Dockerfile
         depends_on:
             - db
         environment:

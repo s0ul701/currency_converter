@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -16,9 +17,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'djmoney',
+    'djmoney.contrib.exchange'
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'apps.rate'
+]
+
+INSTALLED_APPS += LOCAL_APPS
 
 MIGRATION_MODULES = {
     app_name: 'config.migrations.{}'.format(app_name)
@@ -56,13 +64,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432
-    }
+    'default': dj_database_url.config(),
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -92,3 +94,5 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+OPEN_EXCHANGE_RATES_APP_ID = 'f1f6c7ba46a74395893308b7c56fb248'

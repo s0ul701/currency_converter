@@ -8,13 +8,13 @@ services:
     server:
         container_name: currency-conversation-db-server
         build:
-          context: ./
-          dockerfile: ./server/Dockerfile
+            context: ./
+            dockerfile: ./server/Dockerfile
         command: python manage.py runserver 0.0.0.0:8000
         depends_on:
             - db
         environment:
-            DATABASE_URL: postgres://postgres@db/postgres
+            DATABASE_URL: postgres://postgres:password@db:5432/postgres
             DEBUG: "True"
         ports:
             - 8000:8000
