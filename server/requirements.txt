@@ -4,3 +4,4 @@ django-money[exchange]==0.15.1 # for working with money and their exchange rates
 dj-database-url==0.5.0  # for DB settings
 celery==4.3.0   # for tasks of Rates update
 redis==3.3.11   # for Celery broker
+djangorestframework==3.10.3 # DRF for API

@@ -20,7 +20,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'djmoney',
-    'djmoney.contrib.exchange'
+    'djmoney.contrib.exchange',
+    'rest_framework'
 ]
 
 LOCAL_APPS = [

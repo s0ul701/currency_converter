@@ -12,8 +12,8 @@ services:
         container_name: server
         build:
             context: ./
-            dockerfile: debug.Dockerfile
-        command: python3 -m ptvsd --host 0.0.0.0 --port 5678 --wait manage.py runserver 0.0.0.0:8000
+            dockerfile: ./server/debug.Dockerfile
+        # command: python3 -m ptvsd --host 0.0.0.0 --port 5678 --wait manage.py runserver 0.0.0.0:8000
         depends_on:
             - db
             - redis
@@ -33,7 +33,7 @@ services:
         container_name: celery
         build:
             context: ./
-            dockerfile: ./server/Dockerfile
+            dockerfile: ./server/debug.Dockerfile
         command: celery -A config worker -l info
         volumes:
             - ./server:/server
@@ -47,7 +47,7 @@ services:
         container_name: celery_beat
         build:
             context: ./
-            dockerfile: ./server/Dockerfile
+            dockerfile: ./server/debug.Dockerfile
         command: celery -A config beat -l info
         volumes:
             - ./server:/server
