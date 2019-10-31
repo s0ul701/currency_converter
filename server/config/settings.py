@@ -108,8 +108,8 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_BEAT_SCHEDULE = {
-    'hello': {
-        'task': 'apps.rate.tasks.hello',
-        'schedule': crontab()  # execute every minute
+    'update_rates': {
+        'task': 'apps.rate.tasks.hupdate_ratesello',
+        'schedule': crontab(day_of_week='*', hour=0)
     }
 }
