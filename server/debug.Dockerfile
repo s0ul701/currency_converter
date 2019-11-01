@@ -8,8 +8,10 @@ RUN \
 
 WORKDIR /server
 
-COPY ./server/ /server
+COPY ./server/requirements.txt /server/requirements.txt
+
+RUN pip install ptvsd
 
 RUN pip install -r requirements.txt
 
-RUN pip install ptvsd
+COPY ./server/ /server

@@ -1,15 +1,16 @@
 version: '3'
 services:
     db:
-        container_name: postgres_db
         image: postgres:12.0
         ports:
             - 5432:5432
-        volumes:
-            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+        environment:
+            - POSTGRES_USER=postgres_user
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_DB=postgres_db
+        restart: always
 
     server:
-        container_name: server
         build:
             context: ./
             dockerfile: debug.Dockerfile
@@ -18,19 +19,19 @@ services:
             - db
             - redis
         environment:
-            DATABASE_URL: postgres://postgres@db/postgres
+            DATABASE_URL: postgres://postgres_user:password@db:5432/postgres_db
         ports:
             - 8000:8000
             - 5678:5678
         volumes:
             - ./server:/server
+        restart: always
     
     redis:
-        container_name: redis
         image: redis:5.0.6
+        restart: always
     
     celery:
-        container_name: celery
         build:
             context: ./
             dockerfile: ./server/Dockerfile
@@ -42,9 +43,9 @@ services:
             - redis
         environment:
             DATABASE_URL: postgres://postgres_user:password@db:5432/postgres_db
+        restart: always
     
     celery-beat:
-        container_name: celery_beat
         build:
             context: ./
             dockerfile: ./server/Dockerfile
@@ -56,3 +57,4 @@ services:
             - redis
         environment:
             DATABASE_URL: postgres://postgres_user:password@db:5432/postgres_db
+        restart: always
