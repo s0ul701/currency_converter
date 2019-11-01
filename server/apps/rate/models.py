@@ -29,13 +29,13 @@ class Rate(models.Model):
         updated_at (datetime): date and time of last rate update
     """
     from_cur = models.CharField(
-        max_length=255,
+        max_length=3,
         verbose_name='Currency for conversation',
         choices=zip(Currencies.CURRENCIES, Currencies.CURRENCY_STRINGS)
     )
 
     to_cur = models.CharField(
-        max_length=255,
+        max_length=3,
         verbose_name='Result currency',
         choices=zip(Currencies.CURRENCIES, Currencies.CURRENCY_STRINGS)
     )
@@ -56,4 +56,4 @@ class Rate(models.Model):
         verbose_name_plural = 'Rates'
 
     def __str__(self):
-        return f'{self.from_cur} -> {self.to_cur} = {self.rate}'
+        return f'{self.from_cur} -> {self.to_cur} = {self.rate} ({self.updated_at})'
