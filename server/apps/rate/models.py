@@ -1,12 +1,25 @@
 from django.db import models
 
 
-CURRENCY_CHOICE = (
-    ('CZK', 'Czech Republic Koruna'),
-    ('EUR', 'Euro'),
-    ('PLN', 'Polish Zloty'),
-    ('USD', 'United States Dollar')
-)
+class Currencies:
+    CZK = 'CZK'
+    EUR = 'EUR'
+    PLN = 'PLN'
+    USD = 'USD'
+
+    CURRENCIES = (
+        CZK,
+        EUR,
+        PLN,
+        USD,
+    )
+
+    CHOICES = (
+        (CZK, 'Czech Republic Koruna'),
+        (EUR, 'Euro'),
+        (PLN, 'Polish Zloty'),
+        (USD, 'United States Dollar')
+    )
 
 
 class Rate(models.Model):
@@ -22,13 +35,13 @@ class Rate(models.Model):
     from_cur = models.CharField(
         max_length=3,
         verbose_name='Currency for conversation',
-        choices=CURRENCY_CHOICE
+        choices=Currencies.CHOICES
     )
 
     to_cur = models.CharField(
         max_length=3,
         verbose_name='Result currency',
-        choices=CURRENCY_CHOICE
+        choices=Currencies.CHOICES
     )
 
     rate = models.DecimalField(
