@@ -8,7 +8,6 @@ services:
             - POSTGRES_USER=postgres_user
             - POSTGRES_PASSWORD=password
             - POSTGRES_DB=postgres_db
-        restart: always
 
     server:
         build:
@@ -25,17 +24,15 @@ services:
             - 5678:5678
         volumes:
             - ./server:/server
-        restart: always
     
     redis:
         image: redis:5.0.6
-        restart: always
     
     celery:
         build:
             context: ./
             dockerfile: ./server/Dockerfile
-        command: celery -A config worker -l info
+        command: celery -A config worker -l info -B
         volumes:
             - ./server:/server
         depends_on:
@@ -43,18 +40,3 @@ services:
             - redis
         environment:
             DATABASE_URL: postgres://postgres_user:password@db:5432/postgres_db
-        restart: always
-    
-    celery-beat:
-        build:
-            context: ./
-            dockerfile: ./server/Dockerfile
-        command: celery -A config beat -l info
-        volumes:
-            - ./server:/server
-        depends_on:
-            - db
-            - redis
-        environment:
-            DATABASE_URL: postgres://postgres_user:password@db:5432/postgres_db
-        restart: always

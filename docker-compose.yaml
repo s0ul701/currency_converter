@@ -30,21 +30,7 @@ services:
         build:
             context: ./
             dockerfile: ./server/Dockerfile
-        command: celery -A config worker -l info
-        volumes:
-            - ./server:/server
-        depends_on:
-            - db
-            - redis
-        environment:
-            DATABASE_URL: postgres://postgres_user:password@db:5432/postgres_db
-            CELERY_BROKER_URL: redis://redis:6379
-    
-    celery-beat:
-        build:
-            context: ./
-            dockerfile: ./server/Dockerfile
-        command: celery -A config beat -l info
+        command: celery -A config worker -l info -B
         volumes:
             - ./server:/server
         depends_on:
