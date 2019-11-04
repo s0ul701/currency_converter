@@ -12,8 +12,8 @@ class RateAPITestCase(APITestCase):
 
     def test_get_all_initial_rates(self):
         """Test if initial data migration for rates creates all rates"""
-        for (from_cur, _) in Currencies.CHOICES:
-            for (to_cur, _) in Currencies.CHOICES:
+        for from_cur, _ in Currencies.CHOICES:
+            for to_cur, _ in Currencies.CHOICES:
                 if from_cur != to_cur:
                     self.assertEqual(
                         Rate.objects.filter(from_cur=from_cur, to_cur=to_cur).count(),
@@ -39,7 +39,8 @@ class RatesTaksTestCase(TestCase):
     def test_rates_update_task(self):
         """Test if rates before update and after update have different date modification"""
         last_update_dates = {
-            rate.id: rate.updated_at for rate in Rate.objects.all()}
+            rate.id: rate.updated_at
+            for rate in Rate.objects.only('id', 'updated_at')}
         update_rates()
         for (rate_id, rate_update) in last_update_dates.items():
             self.assertNotEqual(
