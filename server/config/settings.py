@@ -110,7 +110,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_BEAT_SCHEDULE = {
     'update_rates': {
-        'task': 'apps.rate.tasks.hupdate_ratesello',
+        'task': 'apps.rate.tasks.update_rates',
         'schedule': crontab(day_of_week='*', hour=0)
     }
 }

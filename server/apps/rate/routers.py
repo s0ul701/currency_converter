@@ -4,4 +4,4 @@ from rest_framework import routers
 
 
 rates_router = routers.DefaultRouter()
-rates_router.register('rates/', RateViewSet)
+rates_router.register('rates', RateViewSet)
