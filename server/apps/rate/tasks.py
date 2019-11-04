@@ -1,5 +1,4 @@
-from celery import shared_task
-
+from celery import task
 from djmoney.contrib.exchange.backends import OpenExchangeRatesBackend
 from djmoney.contrib.exchange.models import get_rate
 
@@ -7,7 +6,7 @@ from config.settings import OPEN_EXCHANGE_RATES_URL
 from apps.rate.models import Rate
 
 
-@shared_task
+@task()
 def update_rates():
     backend = OpenExchangeRatesBackend(url=OPEN_EXCHANGE_RATES_URL)
     backend.update_rates()

@@ -8,11 +8,10 @@ RUN \
 
 WORKDIR /server
 
-COPY ./server/ /server
-
-RUN pip install -r requirements.txt
+COPY ./server/requirements.txt /server/requirements.txt
 
 RUN pip install ptvsd
 
-CMD ["python3", "-m", "ptvsd", "--host", "0.0.0.0", "--port", "5678", "--wait", \
-    "manage.py", "runserver", "--noreload", "--nothreading", "0.0.0.0:8000"]
+RUN pip install -r requirements.txt
+
+COPY ./server/ /server
