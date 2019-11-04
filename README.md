@@ -7,8 +7,9 @@ This application extracts information about exchange rates from [open source](ht
 ## **Instalation**
 
 1. Install [Docker](https://docs.docker.com/install/)
-2. Clone [this repository](https://github.com/) TODO: вставить ссылку на репу
-3. Open terminal and inside the downloaded repository:
+2. Install [Docker Compose](https://docs.docker.com/compose/install/)
+3. Clone [this repository](https://github.com/) TODO: вставить ссылку на репу
+4. Open terminal and inside the downloaded repository:
 
 ```sh
 docker-compose build
