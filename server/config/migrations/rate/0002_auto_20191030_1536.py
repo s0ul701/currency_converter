@@ -4,7 +4,7 @@ from django.db import migrations
 from djmoney.contrib.exchange.backends import OpenExchangeRatesBackend
 from djmoney.contrib.exchange.models import get_rate
 
-from apps.rate.models import CURRENCY_CHOICE, Rate
+from apps.rate.models import Currencies, Rate
 from config.settings import OPEN_EXCHANGE_RATES_URL
 
 
@@ -13,15 +13,15 @@ def load_init_rates(*args, **kwargs):
     backend = OpenExchangeRatesBackend(url=OPEN_EXCHANGE_RATES_URL)
     backend.update_rates()
 
-    currencies = [currency for (currency, _) in CURRENCY_CHOICE]
-    for currency1 in currencies:
-        for currency2 in currencies:
-            if currency1 != currency2:
-                Rate.objects.create(
-                    from_cur=currency1,
-                    to_cur=currency2,
-                    rate=get_rate(currency1, currency2, backend=backend.name)
-                )
+    Rate.objects.bulk_create([
+        Rate(
+            from_cur=from_cur,
+            to_cur=to_cur,
+            rate=get_rate(from_cur, to_cur, backend=backend.name)
+        ) for from_cur in Currencies.CURRENCIES
+        for to_cur in Currencies.CURRENCIES
+        if from_cur != to_cur
+    ])
 
 
 class Migration(migrations.Migration):
