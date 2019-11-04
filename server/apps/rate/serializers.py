@@ -7,4 +7,4 @@ class RateSerializer(ModelSerializer):
     """Serializer for Rate model"""
     class Meta:
         model = Rate
-        fields = ['from_cur', 'to_cur', 'rate', 'updated_at']
+        fields = ('from_cur', 'to_cur', 'rate', 'updated_at')
