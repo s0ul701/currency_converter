@@ -1,6 +1,5 @@
 from django.db import models
 
-
 CURRENCY_CHOICE = (
     ('CZK', 'Czech Republic Koruna'),
     ('EUR', 'Euro'),

@@ -1,8 +1,7 @@
-from apps.rate.routers import rates_router
-
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 
+from apps.rate.routers import rates_router
 
 admin.autodiscover()
 

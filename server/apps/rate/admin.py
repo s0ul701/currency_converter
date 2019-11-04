@@ -1,9 +1,7 @@
 from django.contrib import admin
-
 from djmoney.contrib.exchange import models
 
 from .models import Rate
-
 
 # Unregister Rate model from djmoney library
 admin.site.unregister(models.Rate)
