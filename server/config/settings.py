@@ -1,7 +1,7 @@
 import os
+
 import dj_database_url
 from celery.schedules import crontab
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,7 +20,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'djmoney',
-    'djmoney.contrib.exchange'
+    'djmoney.contrib.exchange',
+    'rest_framework'
 ]
 
 LOCAL_APPS = [

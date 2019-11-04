@@ -2,8 +2,8 @@ from celery import task
 from djmoney.contrib.exchange.backends import OpenExchangeRatesBackend
 from djmoney.contrib.exchange.models import get_rate
 
-from config.settings import OPEN_EXCHANGE_RATES_URL
 from apps.rate.models import Rate
+from config.settings import OPEN_EXCHANGE_RATES_URL
 
 
 @task()
