@@ -47,7 +47,8 @@ class Rate(models.Model):
     rate = models.DecimalField(
         max_digits=19,
         decimal_places=12,
-        verbose_name='Current rate'
+        verbose_name='Current rate',
+        null=True,
     )
 
     updated_at = models.DateTimeField(

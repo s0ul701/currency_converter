@@ -1,5 +1,5 @@
 import os
-
+import sys
 import dj_database_url
 from celery.schedules import crontab
 
@@ -68,6 +68,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(),
 }
+
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'sqlite3.db'
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {

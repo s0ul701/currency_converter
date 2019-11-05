@@ -3,6 +3,7 @@
 from django.db import migrations
 from djmoney.contrib.exchange.backends import OpenExchangeRatesBackend
 from djmoney.contrib.exchange.models import get_rate
+from urllib.error import URLError
 
 from apps.rate.models import Currencies, Rate
 from config.settings import OPEN_EXCHANGE_RATES_URL
@@ -11,17 +12,27 @@ from config.settings import OPEN_EXCHANGE_RATES_URL
 def load_init_rates(*args, **kwargs):
     """Loads inintial rates of currencies"""
     backend = OpenExchangeRatesBackend(url=OPEN_EXCHANGE_RATES_URL)
-    backend.update_rates()
-
-    Rate.objects.bulk_create([
-        Rate(
-            from_cur=from_cur,
-            to_cur=to_cur,
-            rate=get_rate(from_cur, to_cur, backend=backend.name)
-        ) for from_cur in Currencies.CURRENCIES
-        for to_cur in Currencies.CURRENCIES
-        if from_cur != to_cur
-    ])
+    try:
+        backend.update_rates()
+        Rate.objects.bulk_create([
+            Rate(
+                from_cur=from_cur,
+                to_cur=to_cur,
+                rate=get_rate(from_cur, to_cur, backend=backend.name)
+            ) for from_cur in Currencies.CURRENCIES
+            for to_cur in Currencies.CURRENCIES
+            if from_cur != to_cur
+        ])
+    except URLError:
+        Rate.objects.bulk_create([
+            Rate(
+                from_cur=from_cur,
+                to_cur=to_cur,
+                rate=None
+            ) for from_cur in Currencies.CURRENCIES
+            for to_cur in Currencies.CURRENCIES
+            if from_cur != to_cur
+        ])
 
 
 class Migration(migrations.Migration):

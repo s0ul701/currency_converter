@@ -7,10 +7,9 @@ from apps.rate.serializers import RateSerializer
 class RateViewSet(ReadOnlyModelViewSet):
     """Class for providing API for Rate model"""
     serializer_class = RateSerializer
-    queryset = Rate.objects.all()
 
     def get_queryset(self):
-        rates = self.queryset
+        rates = Rate.objects.filter(rate__isnull=False)
         from_cur = self.request.query_params.get('from_cur', None)
         to_cur = self.request.query_params.get('to_cur', None)
 
