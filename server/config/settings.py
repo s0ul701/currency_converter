@@ -3,7 +3,6 @@ import sys
 import dj_database_url
 from celery.schedules import crontab
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'ja5kf4p&jbi(=f4vv)7+ayj@zw%*=4z%99!upgh6ni(4==4zb5'
