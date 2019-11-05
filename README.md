@@ -8,7 +8,7 @@ This application extracts information about exchange rates from [open source](ht
 
 1. Install [Docker](https://docs.docker.com/install/)
 2. Install [Docker Compose](https://docs.docker.com/compose/install/)
-3. Clone [this repository](https://github.com/) TODO: вставить ссылку на репу
+3. Clone [this repository](https://github.com/s0ul701/currency_converter.git)
 4. Open terminal and inside the downloaded repository:
 
 ```sh
@@ -34,5 +34,5 @@ fab createsuperuser
 
 This app provides following API:
 
-* getting all existing exchange rates (<http://0.0.0.0:8000/rates/>)
-* getting filtered exchange rates (<http://0.0.0.0:8000/rates/?from_cur=your_filter&to_cur=your_filter>), where `your_filter` is abbreviation of currencies, e.g. `USD`, `EUR` and so forth. List of all abbreviation you can find [here](https://www.easymarkets.com/int/learn-centre/discover-trading/currency-acronyms-and-abbreviations/)
+* getting all existing exchange rates (<http://0.0.0.0:8000/api/rates/>)
+* getting filtered exchange rates (<http://0.0.0.0:8000/api/rates/?from_cur=your_filter&to_cur=your_filter>), where `your_filter` is abbreviation of currencies e.g. `USD`, `EUR` and so forth. List of all abbreviation you can find [here](https://www.easymarkets.com/int/learn-centre/discover-trading/currency-acronyms-and-abbreviations/)
