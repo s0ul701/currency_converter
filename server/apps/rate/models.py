@@ -49,7 +49,6 @@ class Rate(models.Model):
         decimal_places=12,
         verbose_name='Current rate',
         null=True,
-        default=None
     )
 
     updated_at = models.DateTimeField(
