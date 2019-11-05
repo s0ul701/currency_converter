@@ -16,14 +16,14 @@ docker-compose build
 docker-compose up
 ```
 
-4. Open new terminal window and inside the downloaded repository:
+5. Open new terminal window and inside the downloaded repository:
 
 ```sh
 cd server
 fab migrate
 ```
 
-5. If you want to get access to [admin panel](<http://0.0.0.0:8000/admin/>) of app, open terminal window and inside the downloaded repository:
+6. If you want to get access to [admin panel](<http://0.0.0.0:8000/admin/>) of app, open terminal window and inside the downloaded repository:
 
 ```sh
 cd server
