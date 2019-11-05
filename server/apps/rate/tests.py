@@ -22,7 +22,7 @@ class RateAPITestCase(APITestCase):
 
     def test_get_all_rates(self):
         """Test if server returns all existing values"""
-        response = self.client.get('/rates/')
+        response = self.client.get('/api/rates/')
         self.assertEqual(response.status_code, 200)
 
         response_serializer = RateSerializer(data=response.data)
